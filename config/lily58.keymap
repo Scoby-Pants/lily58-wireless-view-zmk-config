@@ -72,9 +72,9 @@
             display-name = "Base";
             bindings = <
 &gresc     &kp N1  &kp N2  &kp N3            &kp N4        &kp N5                                       &kp N6    &kp N7         &kp N8     &kp N9   &kp N0    &kp MINUS
-&kp TAB    &kp Q   &kp W   &kp F             &kp P         &kp B                                        &kp J     &kp L          &kp U      &kp Y    &kp SEMI  &kp NON_US_BACKSLASH
-&tap_caps  &kp A   &kp R   &kp S             &kp T         &kp G                                        &kp M     &kp N          &kp E      &kp I    &kp O     &kp SQT
-&kp INS    &kp Z   &kp X   &kp C             &kp D         &kp V     &mod_lpar               &mod_rpar  &kp K     &kp H          &kp COMMA  &kp DOT  &kp FSLH  &mod_back
+&kp TAB    &kp Q   &kp W   &kp E             &kp R         &kp T                                        &kp Y     &kp U          &kp I      &kp O    &kp P     &kp NON_US_BACKSLASH
+&tap_caps  &kp A   &kp S   &kp D             &kp F         &kp G                                        &kp H     &kp J          &kp K      &kp L    &kp SEMI  &kp SQT
+&kp INS    &kp Z   &kp X   &kp C             &kp V         &kp B     &mod_lpar               &mod_rpar  &kp N     &kp M          &kp COMMA  &kp DOT  &kp FSLH  &mod_back
                            &kp LEFT_CONTROL  &kp LEFT_ALT  &kp LGUI  &mt LEFT_SHIFT SPACE    &lt 2 RET  &kp RGUI  &kp RIGHT_ALT  &mo 1
             >;
         };
