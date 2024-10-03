@@ -10,16 +10,6 @@
 
 / {
     behaviors {
-        ht_custom: ht_custom {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HT_CUSTOM";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            flavor = "balanced";
-        };
-
         mod_lpar: mod_lpar {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_LPAR";
@@ -38,24 +28,6 @@
             mods = <(MOD_RALT)>;
         };
 
-        mod_coma: mod_coma {
-            compatible = "zmk,behavior-mod-morph";
-            label = "MOD_COMA";
-            bindings = <&kp COMMA>, <&kp SEMICOLON>;
-
-            #binding-cells = <0>;
-            mods = <(MOD_RALT)>;
-        };
-
-        mod_period: mod_period {
-            compatible = "zmk,behavior-mod-morph";
-            label = "MOD_PERIOD";
-            bindings = <&kp PERIOD>, <&kp COLON>;
-
-            #binding-cells = <0>;
-            mods = <(MOD_RALT)>;
-        };
-
         copy_paste: copy_paste {
             compatible = "zmk,behavior-mod-morph";
             label = "COPY_PASTE";
@@ -66,13 +38,21 @@
             keep-mods = <(MOD_LSFT)>;
         };
 
-        eq_asterix: eq_asterix {
+        mod_back: mod_back {
             compatible = "zmk,behavior-mod-morph";
-            label = "EQ_ASTERIX";
-            bindings = <&kp EQUAL>, <&kp ASTERISK>;
+            label = "MOD_BACK";
+            bindings = <&kp BACKSPACE>, <&kp DELETE>;
 
             #binding-cells = <0>;
             mods = <(MOD_RALT)>;
+            keep-mods = <(MOD_LALT|MOD_LSFT|MOD_LCTL|MOD_LGUI)>;
+        };
+
+        tap_caps: tap_caps {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_CAPS";
+            #binding-cells = <0>;
+            bindings = <&kp CAPSLOCK>, <&caps_word>;
         };
     };
 
@@ -81,7 +61,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        colemak-dh {
             // ------------------------------------------------------------------------------------------------------------
             // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
@@ -91,11 +71,11 @@
 
             display-name = "Base";
             bindings = <
-&gresc         &kp N1  &kp N2  &kp N3            &kp N4        &kp N5                                                          &kp N6  &kp N7         &kp N8         &kp N9         &kp N0    &eq_asterix
-&kp TAB        &kp Q   &kp W   &kp E             &kp R         &kp T                                                           &kp Y   &kp U          &kp I          &kp O          &kp P     &kp MINUS
-&kp BACKSPACE  &kp A   &kp S   &kp D             &kp F         &kp G                                                           &kp H   &kp J          &kp K          &kp L          &kp SEMI  &kp SQT
-&mod_lpar      &kp Z   &kp X   &kp C             &kp V         &kp B               &mod_coma                      &mod_period  &kp N   &kp M          &kp AMPERSAND  &kp BACKSLASH  &kp FSLH  &mod_rpar
-                               &kp LEFT_CONTROL  &kp LEFT_ALT  &kp LC(LEFT_SHIFT)  &ht_custom LEFT_SHIFT SPACE    &lt 2 RET    &mo 1   &kp RIGHT_ALT  &kp RGUI
+&gresc     &kp N1  &kp N2  &kp N3            &kp N4        &kp N5                                       &kp N6    &kp N7         &kp N8     &kp N9   &kp N0    &kp MINUS
+&kp TAB    &kp Q   &kp W   &kp F             &kp P         &kp B                                        &kp J     &kp L          &kp U      &kp Y    &kp SEMI  &kp NON_US_BACKSLASH
+&tap_caps  &kp A   &kp R   &kp S             &kp T         &kp G                                        &kp M     &kp N          &kp E      &kp I    &kp O     &kp SQT
+&kp INS    &kp Z   &kp X   &kp C             &kp D         &kp V     &mod_lpar               &mod_rpar  &kp K     &kp H          &kp COMMA  &kp DOT  &kp FSLH  &mod_back
+                           &kp LEFT_CONTROL  &kp LEFT_ALT  &kp LGUI  &mt LEFT_SHIFT SPACE    &lt 2 RET  &kp RGUI  &kp RIGHT_ALT  &mo 1
             >;
         };
 
@@ -127,11 +107,11 @@
 
             display-name = "Raise";
             bindings = <
-&trans      &kp F1  &kp F2    &kp F3       &kp F4   &kp F5                     &kp F6   &kp F7     &kp F8        &kp F9           &kp F10  &trans
-&trans      &none   &none     &kp PG_UP    &none    &kp F11                    &kp F12  &mkp LCLK  &kp UP_ARROW  &mkp RCLK        &none    &trans
-&kp DEL     &none   &kp HOME  &kp PG_DN    &kp END  &none                      &none    &kp LEFT   &kp DOWN      &kp RIGHT_ARROW  &trans   &trans
-&kp INSERT  &none   &none     &copy_paste  &none    &none    &trans    &trans  &trans   &trans     &trans        &trans           &trans   &trans
-                              &trans       &trans   &trans   &trans    &trans  &trans   &trans     &trans
+&trans  &kp F1  &kp F2    &kp F3       &kp F4   &kp F5                     &kp F6   &kp F7     &kp F8        &kp F9           &kp F10  &trans
+&trans  &none   &none     &kp PG_UP    &none    &kp F11                    &kp F12  &mkp LCLK  &kp UP_ARROW  &mkp RCLK        &none    &trans
+&trans  &none   &kp HOME  &kp PG_DN    &kp END  &none                      &none    &kp LEFT   &kp DOWN      &kp RIGHT_ARROW  &trans   &trans
+&trans  &none   &none     &copy_paste  &none    &none    &trans    &trans  &trans   &trans     &trans        &trans           &trans   &trans
+                          &trans       &trans   &trans   &trans    &trans  &trans   &trans     &trans
             >;
         };
     };
